@@ -96,7 +96,7 @@ else:
                 with zipfile.ZipFile("c:/Program Files/Virus-Creator-Py/components/main.zip","r") as zip_ref:
                     zip_ref.extractall("c:/Program Files/Virus-Creator-Py/components/")
             ''' + f'''
-                os.system('c:&&cd/&&cd Program Files/Virus-Creator-Py/components/VC-updates-main/&&copy "mainProgramWindows.py" "{os.getcwd()}"&&rmdir /s /q "c:/Program Files/Virus-Creator-Py/components/VC-updates-main"')
+                os.system('c:&&cd/&&cd Program Files/Virus-Creator-Py/components/VC-updates-main/&&copy "mainProgramWindows.py" "{os.getcwd()}"&&rmdir /s /q "c:/Program Files/Virus-Creator-Py/components/VC-updates-main"&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components/&&del "c:/Program Files/Virus-Creator-Py/components/main.zip"&&rmdir /s /q "c:/Program Files/Virus-Creator-Py/components/VC-updates-main"')
 ''' + '''
             else:
                 print("Seems you didn't install Virus-Creator in your computer...")
@@ -112,8 +112,11 @@ else:
             f'c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&mkdir http_client&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&c:&&cd/&&cd c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&xcopy "{os.getcwd()}/cmpts/http_client" "c:/Program Files/Virus-Creator-Py/components/http_client" /-Y')
     if os.path.exists(f"dist") == False and os.path.exists(f"updater.py"):
         os.system(f'pip install pyinstaller&&pyinstaller --onefile updater.py&&cd dist&&move "updater.exe" "{os.getcwd()}"&&cd..&&start updater.exe')
+        runps(f"cd {os.getcwd()}&&Remove-Item dist -Recurse -Force")
+        runps(f"cd {os.getcwd()}&&Remove-Item build -Recurse -Force")
     else:
         os.system(f'cd dist&&move "updater.exe" "{os.getcwd()}"&&cd..&&start updater.exe')
+
 
 
 def createShortcut(destPath):
