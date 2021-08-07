@@ -53,69 +53,72 @@ def runps(cmd, outputCapture=False):
 
 
 def createUpdater():
-    if os.path.exists(f"{os.getcwd()}/updater.py") == False:
-        print(os.getcwd())
-        os.system(f'copy "cmpts/cred.json" "c:/Program Files/Virus-Creator-Py/components/"')
-        open(f"{os.getcwd()}/updater.py", "w").write('''       
-import firebase_admin
-from firebase_admin import credentials
-import os
-import subprocess
-from firebase_admin import db
-from termcolor import cprint
-import admin
-import ctypes
-import requests
-import colorama
-url = 'https://raw.githubusercontent.com/AbdulWahab321/VC-updates/main/mainProgramWindows.py'
-page = requests.get(url)
-codeNew = page.text
-colorama.init()
-if ctypes.windll.shell32.IsUserAnAdmin()==0:
-    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
-else:    
-    pathOfVC = ""
-    cprint("Please wait....","green")
-    cprint("Checking for Updates....","green")
-    cred = credentials.Certificate("./cred.json")
-    firebase_admin.initialize_app(cred,{
-        'databaseURL' : 'https://my-first-python-ea110-default-rtdb.firebaseio.com/'
-    })
-    ref = db.reference("newCode")
-    refUpdate = db.reference("Updates")
-    code = ref.get()
-'''+f'''
-    if refUpdate.get() == True:
-        if open("{os.getcwd()}/mainProgramWindows.py").read() != codeNew:
-            cprint("Updates are available Installing updates.....","cyan")    
-            def runps(cmd, outputCapture=False):
-                subprocess.run(["powershell", "-Command", cmd], capture_output=outputCapture)
-            if os.path.exists("c:/Program Files/Virus-Creator-Py/components"):
-                runps(f"Start-BitsTransfer -Source https://github.com/AbdulWahab321/VC-updates/archive/refs/heads/main.zip -Destination 'c:/Program Files/Virus-Creator-Py/components/main.zip'")
-                import zipfile
-                with zipfile.ZipFile("c:/Program Files/Virus-Creator-Py/components/main.zip","r") as zip_ref:
-                    zip_ref.extractall("c:/Program Files/Virus-Creator-Py/components/")
-            ''' + f'''
-                os.system('c:&&cd/&&cd Program Files/Virus-Creator-Py/components/VC-updates-main/&&copy "mainProgramWindows.py" "{os.getcwd()}"&&rmdir /s /q "c:/Program Files/Virus-Creator-Py/components/VC-updates-main"&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components/&&del "c:/Program Files/Virus-Creator-Py/components/main.zip"&&rmdir /s /q "c:/Program Files/Virus-Creator-Py/components/VC-updates-main"')
-''' + '''
-            else:
-                print("Seems you didn't install Virus-Creator in your computer...")
-                print("please type r-cvc to install it if you deleted the folders")
-        else:
-            cprint("HEY... You are up to date!!","cyan")
-''')
-    if os.path.exists("c:/Program Files/Virus-Creator-Py/components/firebase_admin") == False:
-        os.system(
-            f'c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&mkdir firebase_admin&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&c:&&cd/&&cd c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&xcopy "{os.getcwd()}/cmpts/firebase_admin" "c:/Program Files/Virus-Creator-Py/components/firebase_admin" /-Y')
-    elif os.path.exists("c:/Program Files/Virus-Creator-Py/components/http_client") == False:
-        os.system(
-            f'c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&mkdir http_client&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&c:&&cd/&&cd c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&xcopy "{os.getcwd()}/cmpts/http_client" "c:/Program Files/Virus-Creator-Py/components/http_client" /-Y')
-    if os.path.exists(f"dist") == False and os.path.exists(f"updater.py"):
-        os.system(f'pip install pyinstaller&&pyinstaller --onefile updater.py&&cd dist&&move "updater.exe" "{os.getcwd()}"&&cd..&&start updater.exe')
-        runps(f"cd {os.getcwd()}&&Remove-Item dist -Recurse -Force")
-        runps(f"cd {os.getcwd()}&&Remove-Item build -Recurse -Force")
+    if os.path.exists("updater.exe"):
+        os.system("updater.exe")
     else:
-        os.system(f'cd dist&&move "updater.exe" "{os.getcwd()}"&&cd..&&start updater.exe')
+        if os.path.exists(f"{os.getcwd()}/updater.py") == False:
+            print(os.getcwd())
+            os.system(f'copy "cmpts/cred.json" "c:/Program Files/Virus-Creator-Py/components/"')
+            open(f"{os.getcwd()}/updater.py", "w").write('''       
+    import firebase_admin
+    from firebase_admin import credentials
+    import os
+    import subprocess
+    from firebase_admin import db
+    from termcolor import cprint
+    import admin
+    import ctypes
+    import requests
+    import colorama
+    url = 'https://raw.githubusercontent.com/AbdulWahab321/VC-updates/main/mainProgramWindows.py'
+    page = requests.get(url)
+    codeNew = page.text
+    colorama.init()
+    if ctypes.windll.shell32.IsUserAnAdmin()==0:
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+    else:    
+        pathOfVC = ""
+        cprint("Please wait....","green")
+        cprint("Checking for Updates....","green")
+        cred = credentials.Certificate("./cred.json")
+        firebase_admin.initialize_app(cred,{
+            'databaseURL' : 'https://my-first-python-ea110-default-rtdb.firebaseio.com/'
+        })
+        ref = db.reference("newCode")
+        refUpdate = db.reference("Updates")
+        code = ref.get()
+    '''+f'''
+        if refUpdate.get() == True:
+            if open("{os.getcwd()}/mainProgramWindows.py").read() != codeNew:
+                cprint("Updates are available Installing updates.....","cyan")    
+                def runps(cmd, outputCapture=False):
+                    subprocess.run(["powershell", "-Command", cmd], capture_output=outputCapture)
+                if os.path.exists("c:/Program Files/Virus-Creator-Py/components"):
+                    runps(f"Start-BitsTransfer -Source https://github.com/AbdulWahab321/VC-updates/archive/refs/heads/main.zip -Destination 'c:/Program Files/Virus-Creator-Py/components/main.zip'")
+                    import zipfile
+                    with zipfile.ZipFile("c:/Program Files/Virus-Creator-Py/components/main.zip","r") as zip_ref:
+                        zip_ref.extractall("c:/Program Files/Virus-Creator-Py/components/")
+                ''' + f'''
+                    os.system('c:&&cd/&&cd Program Files/Virus-Creator-Py/components/VC-updates-main/&&copy "mainProgramWindows.py" "{os.getcwd()}"&&rmdir /s /q "c:/Program Files/Virus-Creator-Py/components/VC-updates-main"&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components/&&del "c:/Program Files/Virus-Creator-Py/components/main.zip"&&rmdir /s /q "c:/Program Files/Virus-Creator-Py/components/VC-updates-main"')
+    ''' + '''
+                else:
+                    print("Seems you didn't install Virus-Creator in your computer...")
+                    print("please type r-cvc to install it if you deleted the folders")
+            else:
+                cprint("HEY... You are up to date!!","cyan")
+    ''')
+        if os.path.exists("c:/Program Files/Virus-Creator-Py/components/firebase_admin") == False:
+            os.system(
+                f'c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&mkdir firebase_admin&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&c:&&cd/&&cd c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&xcopy "{os.getcwd()}/cmpts/firebase_admin" "c:/Program Files/Virus-Creator-Py/components/firebase_admin" /-Y')
+        elif os.path.exists("c:/Program Files/Virus-Creator-Py/components/http_client") == False:
+            os.system(
+                f'c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&mkdir http_client&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&c:&&cd/&&cd c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&xcopy "{os.getcwd()}/cmpts/http_client" "c:/Program Files/Virus-Creator-Py/components/http_client" /-Y')
+        if os.path.exists(f"dist") == False and os.path.exists(f"updater.py"):
+            os.system(f'pip install pyinstaller&&pyinstaller --onefile updater.py&&cd dist&&move "updater.exe" "{os.getcwd()}"&&cd..&&start updater.exe')
+            runps(f"cd {os.getcwd()}&&Remove-Item dist -Recurse -Force")
+            runps(f"cd {os.getcwd()}&&Remove-Item build -Recurse -Force")
+        else:
+            os.system(f'cd dist&&move "updater.exe" "{os.getcwd()}"&&cd..&&start updater.exe')
 
 
 
