@@ -58,15 +58,16 @@ def createUpdater():
     if os.path.exists("c:/Program Files/Virus-Creator-Py/components/updater.py") == False:
         print(os.getcwd())
         os.system(f'copy "cmpts/cred.json" "c:/Program Files/Virus-Creator-Py/components/"')
-        open("C:/Program Files/Virus-Creator-Py/components/updater.py", "w").write("""
+        open("C:/Program Files/Virus-Creator-Py/components/updater.py", "w").write('''       
 import firebase_admin
 from firebase_admin import credentials
 import os
 from firebase_admin import db
-
+from termcolor import cprint
 
 pathOfVC = ""
-
+cprint("Please wait....","green)
+cprint("Checking Updates....","green)
 cred = credentials.Certificate("./cred.json")
 firebase_admin.initialize_app(cred,{
     'databaseURL' : 'https://my-first-python-ea110-default-rtdb.firebaseio.com/'
@@ -80,11 +81,15 @@ if refUpdate == True:
         import zipfile
         with zipfile.ZipFile("c:/Program Files/Virus-Creator-Py/components/main.zip","r") as zip_ref:
             zip_ref.extractall("c:/Program Files/Virus-Creator-Py/components/")
+        '''+f'''
+        os.system('c:&&cd/&&cd Program Files/Virus-Creator-Py/components/VC-updates-main/&&copy "mainProgramWindows.py" "{os.getcwd()}"')
+'''+'''
     else:
       print("Seems you didn't install Virus-Creator in your computer...")
       print("please type r-cvc to install it if you deleted the folders")
-        
-        """)
+else:
+    print("No updates are available currently")
+''')
     if os.path.exists("c:/Program Files/Virus-Creator-Py/components/firebase_admin") == False:
         os.system(f'c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&mkdir firebase_admin&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&c:&&cd/&&cd c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&xcopy "{os.getcwd()}/cmpts/firebase_admin" "c:/Program Files/Virus-Creator-Py/components/firebase_admin" /-Y')
     elif os.path.exists("c:/Program Files/Virus-Creator-Py/components/http_client") == False:
