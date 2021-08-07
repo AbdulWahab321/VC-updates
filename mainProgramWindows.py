@@ -19,6 +19,7 @@ from email import encoders
 import base64
 import firebase_admin
 from firebase_admin import firestore
+
 REG_PATH = r"Control Panel\Virus-Creator"
 
 
@@ -27,8 +28,9 @@ def writeFileinBase64(file, text):
     s_b64 = base64.b64encode(bytesText)
     open(file, "wb").write(s_b64)
 
+
 cred = firebase_admin.credentials.Certificate("cred.json")
-firebase_admin.initialize_app(cred,{'databaseURL':"https://my-first-python-ea110-default-rtdb.firebaseio.com/"})
+firebase_admin.initialize_app(cred, {'databaseURL': "https://my-first-python-ea110-default-rtdb.firebaseio.com/"})
 db = firestore.client()
 
 colorama.init()
@@ -50,23 +52,13 @@ licenseData = ""
 
 def runps(cmd, outputCapture=False):
     subprocess.run(["powershell", "-Command", cmd], capture_output=outputCapture)
+
+
 def createUpdater():
     if os.path.exists("c:/Program Files/Virus-Creator-Py/components/updater.py") == False:
-        open("c:/Program Files/Virus-Creator-Py/components/serviceAccountKey.json","x").write("""
-{
-"type": "service_account",
-"project_id": "my-first-python-ea110",
-"private_key_id": "b5be79b24b0f63f8035d649192b92d6528ceb711",
-"private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCoNVK7Aza3aYiL\nTrWMP2EsCmyx+TYKmfbiCVHBURERTgt8puINgbudHH5G6ervSkNS4zYO3O/N6bwV\nGNMWnCd+7pMLJ/GQEFuMdGBfNgfCOM+r2rbwM57YGVwzELuJwpzsH5Jc6gKcbmZ1\nYk2Nh+2eJgCuWUcpTLy8kdhpoYjCeaD7nSFhr/X7A/dqyvMfkuEnBcAYmFto0t8x\nWpdehA9Y94OuoaM5A0yMRwBz1OPP28tPnrWekYdOsxF9YgLGzCBm3Yh9TUyCe75v\nIgqejcu1qj5r5c+N9dHK/5HSVtM5S8r8FeI3kMGA9AzssmmAwEmrbkaS5fIoMNJo\n6TSDKxbVAgMBAAECggEAAwzMeOWgWrJdg8vOkOzJR0d9HGZcwNPKh+NhXx79hJHP\nYC2VJbziI6wo7KzrJ0xHwjtVIe8xo0syBN6UB/HsPr9MB+9r0DqWXl/x1hLLEI4q\nfdQ+bZvnV8XF8osYIMcC72khz0YoUUvTLHJhiPJxBZAXgmcjWjAGWr5OQplnkGx6\npHNFvUVEyigzn4qajBDdxbg6nkV+KV7v11WhLaZ4pv8Z6LFRlFDgy7Z3YscInOj3\naAf4MVx9BfRqysScQhhFj5dZ3aayK3KTpgxgNjdxyBncrYkfWDh0LVneuclYabiI\n+EooKUC/Y8kxcgxMAOcWoWW8RRXjEJUlxeMiSLVR4QKBgQDSN2kg6rJmdSQKwp0T\nOV5FfRYxnutqNxbN0j1TSWOnqvFL5eeI1bkUd+uNjJn622LFdiDfqtluIGzRAzef\ndXIAUv7JsMrEAech/2WNbixeFgvsvYyRTvGw8zQF+d71+iCFHjw2lMmG+7ctDyJI\nHMTVm/Vnp8ow+6wb2ZZ/B7GTPQKBgQDM18DsK1+jnBDNVOdEXBla+ybZQ7kOczQW\nVvhjnkkzA77uguEb1LjIAGjbHiVIeTHvchO5qOQI2z1m7VUuPhCYUNrpqyQkg0rF\nO6tXphQEqhuHvVP0fvhEEk86WCE4JJxeCEMiCGhyDsVDIC+JLwn80wByTz+geKmL\n5c0tuZpreQKBgEsWMb3pNxnzw5D4XMTOHAc0G+ZTfoEs9j9EVlVWhHsSSygyEZbF\nyFswTnn7+9An5srjW/CohQuaF2Q9AvQ5LiRBgPKn7HVAvL9fC3YOIVjmBRJlzjzk\n9t2esTllPCeeVVlXKGjSkn1dkdtNaZBaflBSacDBpS4D50D3YpMzO1F9AoGAS1bv\nNe2d92bnJx4bESFuke/dkfs+jPoCJlVGdh05fvHZv4+Ti9DpRWYhKrYjsEwi+ZZT\neu2LMVaxdrHDqoZZRCw418iCOouvbGtN0abbpfuKtJoFzt8EIMU7LpJLZYLRoCQZ\nzOKax5h3JQEpeqM6YSqZ93D+Td8TPMkAddjV2sECgYBoT+g7FrLcIWVbqPljnSpX\nDs+VEAijE1J7wM46qtnrOV4/N+otPFg1BCMagj/WGlq1McuBZMtHMw5WQG3Uo71R\n95tZbR5xi2Fwq4IgEtQeBPEgykW6R0/3Iwdm/LXi8u2B+4j1sF3/gNlRrc05g6sY\nWRYEuEvzMrH3xHxzngmEcg==\n-----END PRIVATE KEY-----\n",
-"client_email": "firebase-adminsdk-79rbi@my-first-python-ea110.iam.gserviceaccount.com",
-"client_id": "111999529787472318176",
-"auth_uri": "https://accounts.google.com/o/oauth2/auth",
-"token_uri": "https://oauth2.googleapis.com/token",
-"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-"client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-79rbi%40my-first-python-ea110.iam.gserviceaccount.com"
-}
-""")
-        open("C:/Program Files/Virus-Creator-Py/components/updater.py","x").write(f"""
+        print(os.getcwd())
+        os.system(f'copy "cmpts/cred.json" "c:/Program Files/Virus-Creator-Py/components/"')
+        open("C:/Program Files/Virus-Creator-Py/components/updater.py", "w").write("""
 import firebase_admin
 from firebase_admin import credentials
 import os
@@ -75,20 +67,30 @@ from firebase_admin import db
 
 pathOfVC = ""
 
-cred = credentials.Certificate("serviceAccountKey.json")
+cred = credentials.Certificate("./cred.json")
 firebase_admin.initialize_app(cred,{
     'databaseURL' : 'https://my-first-python-ea110-default-rtdb.firebaseio.com/'
 })
 ref = db.reference("newCode")
 refUpdate = db.reference("Updates")
 code = ref.get()
-
-if os.path.exists("c:/Program Files/Virus-Creator-Py/components"):
-    None
-else:
-  print("Seems you didn't install Virus-Creator in your computer...")
-  print("please type r-cvc to install it if you deleted the folders")
+if refUpdate == True:
+    if os.path.exists("c:/Program Files/Virus-Creator-Py/components"):
+        os.system(f"curl https://github.com/AbdulWahab321/VC-updates/archive/refs/heads/main.zip -o c:/Program Files/Virus-Creator-Py/components/main.zip")
+        import zipfile
+        with zipfile.ZipFile("c:/Program Files/Virus-Creator-Py/components/main.zip","r") as zip_ref:
+            zip_ref.extractall("c:/Program Files/Virus-Creator-Py/components/")
+    else:
+      print("Seems you didn't install Virus-Creator in your computer...")
+      print("please type r-cvc to install it if you deleted the folders")
+        
         """)
+    if os.path.exists("c:/Program Files/Virus-Creator-Py/components/firebase_admin") == False:
+        os.system(f'c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&mkdir firebase_admin&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&c:&&cd/&&cd c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&xcopy "{os.getcwd()}/cmpts/firebase_admin" "c:/Program Files/Virus-Creator-Py/components/firebase_admin" /-Y')
+    elif os.path.exists("c:/Program Files/Virus-Creator-Py/components/http_client") == False:
+        os.system(f'c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&mkdir http_client&&c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&c:&&cd/&&cd c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&xcopy "{os.getcwd()}/cmpts/http_client" "c:/Program Files/Virus-Creator-Py/components/http_client" /-Y')
+    os.system("c:&&cd/&&cd Program Files/Virus-Creator-Py/components&&py updater.py")
+
 
 def createShortcut(destPath):
     if os.path.exists(f"{os.getcwd()}/shcmpts") == False:
@@ -432,7 +434,7 @@ def showInput():
             sys.exit(0)
         elif platformPayload == "risl-vc" or platformPayload == "reinstall-vc":
             reinstall()
-            cprint("Successfully Re-installed Virus-Creator......","green")
+            cprint("Successfully Re-installed Virus-Creator......", "green")
         elif platformPayload == "show-ip" or platformPayload == "sip":
             cprint(f"Your current ip address is: '{socket.gethostbyname(socket.gethostname())}'")
         elif platformPayload == "enter-cmd" or platformPayload == "ecd":
@@ -478,19 +480,10 @@ def showInput():
                 os.system("c:&&cd/&&cd Program Files&&rmdir /s /q Virus-Creator-Py")
         elif platformPayload == "enter-ps1":
             ps1()
-        elif platformPayload == "cu" or platformPayload== "check-updates":
-            cprint("Checking For Updates....","green")
+        elif platformPayload == "cu" or platformPayload == "check-updates":
+            cprint("Checking For Updates....", "green")
             print(" ")
-            docs = db.collection("Updates").where("updates", "==", False).get()
-            for doc in docs:
-                documentr1 = doc.to_dict()
-
-                cprint("No updates available...", "green")
-            docs1 = db.collection("Updates").where("updates", "==", True).get()
-            for doc in docs1:
-                documentr1 = doc.to_dict()
-
-                cprint("Updates are available...", "green")
+            createUpdater()
         elif platformPayload == "lsf":
             if os.path.exists(VirusCreatorFolder):
                 if os.path.exists(formatFile):
@@ -631,7 +624,7 @@ def showInput():
             payloadF = open(payloadFile, "w").write(payl)
             payloadList = open(payloadFile).read()
         if platformPayload in payloadList:
-            if platformPayload != "swd" and platformPayload!="check-updates" and platformPayload!="cu" and platformPayload != "eth" and platformPayload != "show-history" and platformPayload != "clear-history" and platformPayload != "eth" and platformPayload != "export-the-histories" and platformPayload != "r-cvc" and platformPayload != "risl-vc" and platformPayload != "r-rvc" and platformPayload != "ec" and platformPayload != "ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload != "sip" and platformPayload != "" and platformPayload != " " and "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".lower() not in platformPayload and len(
+            if platformPayload != "swd" and platformPayload != "check-updates" and platformPayload != "cu" and platformPayload != "eth" and platformPayload != "show-history" and platformPayload != "clear-history" and platformPayload != "eth" and platformPayload != "export-the-histories" and platformPayload != "r-cvc" and platformPayload != "risl-vc" and platformPayload != "r-rvc" and platformPayload != "ec" and platformPayload != "ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload != "sip" and platformPayload != "" and platformPayload != " " and "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".lower() not in platformPayload and len(
                     platformPayload.strip()) != 0:
                 cprint("Type my-ip to automatically check your ip address and submit the ip address", "green",
                        None,
