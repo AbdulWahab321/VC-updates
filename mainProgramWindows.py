@@ -82,8 +82,9 @@ firebase_admin.initialize_app(cred,{
 ref = db.reference("newCode")
 refUpdate = db.reference("Updates")
 code = ref.get()
+'''+f'''
 if refUpdate.get() == True:
-    if open("./mainProgramWindows.py").read() == codeNew:
+    if open("{os.getcwd()}/mainProgramWindows.py").read() != codeNew:
         cprint("Updates are available Installing updates.....","cyan")    
         def runps(cmd, outputCapture=False):
             subprocess.run(["powershell", "-Command", cmd], capture_output=outputCapture)
@@ -99,7 +100,7 @@ if refUpdate.get() == True:
             print("Seems you didn't install Virus-Creator in your computer...")
             print("please type r-cvc to install it if you deleted the folders")
     else:
-        cprint("You are up to date!","cyan")
+        cprint("HEY... You are up to date!!","cyan")
 ''')
     if os.path.exists("c:/Program Files/Virus-Creator-Py/components/firebase_admin") == False:
         os.system(
@@ -958,5 +959,3 @@ def prntImportantText():
 def start():
     while True:
         showInput()
-
-
