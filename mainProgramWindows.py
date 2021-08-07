@@ -512,7 +512,7 @@ def showInput():
         elif platformPayload == "enter-ps1":
             ps1()
         elif platformPayload == "cu" or platformPayload == "check-updates":
-            cprint("Checking For Updates....", "green")
+            cprint("Starting setup....", "green")
             print(" ")
             createUpdater()
         elif platformPayload == "lsf":
