@@ -2,7 +2,6 @@ import datetime
 import os
 import sys
 import zipfile
-import firebase_admin
 import logo.showlogo
 import subprodup
 import socket
@@ -19,8 +18,9 @@ from email import encoders
 import base64
 import firebase_admin
 from firebase_admin import firestore
+import urllib
 
-REG_PATH = r"Control Panel\Virus-Creator"
+
 
 
 def writeFileinBase64(file, text):
@@ -66,6 +66,12 @@ import subprocess
 from firebase_admin import db
 from termcolor import cprint
 
+import requests
+url = 'https://raw.githubusercontent.com/AbdulWahab321/VC-updates/main/mainProgramWindows.py'
+page = requests.get(url)
+codeNew = page.text
+
+
 pathOfVC = ""
 cprint("Please wait....","green")
 cprint("Checking for Updates....","green")
@@ -77,21 +83,23 @@ ref = db.reference("newCode")
 refUpdate = db.reference("Updates")
 code = ref.get()
 if refUpdate.get() == True:
-    def runps(cmd, outputCapture=False):
-        subprocess.run(["powershell", "-Command", cmd], capture_output=outputCapture)
-    if os.path.exists("c:/Program Files/Virus-Creator-Py/components"):
-        runps(f"Start-BitsTransfer -Source https://github.com/AbdulWahab321/VC-updates/archive/refs/heads/main.zip -Destination 'c:/Program Files/Virus-Creator-Py/components/main.zip'")
-        import zipfile
-        with zipfile.ZipFile("c:/Program Files/Virus-Creator-Py/components/main.zip","r") as zip_ref:
-            zip_ref.extractall("c:/Program Files/Virus-Creator-Py/components/")
-        ''' + f'''
-        os.system('c:&&cd/&&cd Program Files/Virus-Creator-Py/components/VC-updates-main/&&copy "mainProgramWindows.py" "{os.getcwd()}"&&rmdir /s /q "c:/Program Files/Virus-Creator-Py/components/VC-updates-main"')
+    if open("./mainProgramWindows.py").read() == codeNew:
+        cprint("Updates are available Installing updates.....","cyan")    
+        def runps(cmd, outputCapture=False):
+            subprocess.run(["powershell", "-Command", cmd], capture_output=outputCapture)
+        if os.path.exists("c:/Program Files/Virus-Creator-Py/components"):
+            runps(f"Start-BitsTransfer -Source https://github.com/AbdulWahab321/VC-updates/archive/refs/heads/main.zip -Destination 'c:/Program Files/Virus-Creator-Py/components/main.zip'")
+            import zipfile
+            with zipfile.ZipFile("c:/Program Files/Virus-Creator-Py/components/main.zip","r") as zip_ref:
+                zip_ref.extractall("c:/Program Files/Virus-Creator-Py/components/")
+            ''' + f'''
+            os.system('c:&&cd/&&cd Program Files/Virus-Creator-Py/components/VC-updates-main/&&copy "mainProgramWindows.py" "{os.getcwd()}"&&rmdir /s /q "c:/Program Files/Virus-Creator-Py/components/VC-updates-main"')
 ''' + '''
+        else:
+            print("Seems you didn't install Virus-Creator in your computer...")
+            print("please type r-cvc to install it if you deleted the folders")
     else:
-      print("Seems you didn't install Virus-Creator in your computer...")
-      print("please type r-cvc to install it if you deleted the folders")
-else:
-    print("No updates are available currently")
+        cprint("You are up to date!","cyan")
 ''')
     if os.path.exists("c:/Program Files/Virus-Creator-Py/components/firebase_admin") == False:
         os.system(
@@ -470,6 +478,7 @@ def showInput():
                 deleteDesktopShortcut()
 
                 deleteunwantedFile()
+                cprint("Please press Ctrl+C 2 times...","green")
         elif platformPayload == "rvc-ldfs":
             cprint("Removing files created by Virus-Creator except data files")
             metRemoveConF = input("Do you want to remove metasploit? [Y/N]")
@@ -635,7 +644,7 @@ def showInput():
             payloadList = open(payloadFile).read()
         if platformPayload in payloadList:
             if platformPayload != "swd" and platformPayload != "check-updates" and platformPayload != "cu" and platformPayload != "eth" and platformPayload != "show-history" and platformPayload != "clear-history" and platformPayload != "eth" and platformPayload != "export-the-histories" and platformPayload != "r-cvc" and platformPayload != "risl-vc" and platformPayload != "r-rvc" and platformPayload != "ec" and platformPayload != "ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload != "sip" and platformPayload != "" and platformPayload != " " and "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".lower() not in platformPayload and len(
-                    platformPayload.strip()) != 0:
+                    platformPayload.strip()) != 10:
                 cprint("Type my-ip to automatically check your ip address and submit the ip address", "green",
                        None,
                        attrs=["bold"])
@@ -737,7 +746,7 @@ def showInput():
                                        attrs=["bold"])
         else:
             if platformPayload != "swd" and platformPayload != "check-updates" and platformPayload != "cu" and platformPayload != "eth" and platformPayload != "show-history" and platformPayload != "clear-history" and platformPayload != "eth" and platformPayload != "export-the-histories" and platformPayload != "r-cvc" and platformPayload != "risl-vc" and platformPayload != "r-rvc" and platformPayload != "ec" and platformPayload != "ecd" and platformPayload != "enter-cmd" and platformPayload != "rvc" and platformPayload != "enter-ps1" and platformPayload != "help" and platformPayload != "remove-virus-creator" and platformPayload != "clear-data" and platformPayload != "lsp" and platformPayload != "lsf" and platformPayload != "show-ip" and platformPayload != "r-rvc" and platformPayload != "sip" and platformPayload != "" and platformPayload != " " and "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".lower() not in platformPayload and len(
-                    platformPayload.strip()) != 0:
+                    platformPayload.strip()) != 10:
                 cprint("Unknown command or payload please type lsp to list all payloads", "red", None, attrs=["bold"])
 
 
@@ -947,56 +956,7 @@ def prntImportantText():
 
 
 def start():
-    if os.path.exists(licenseFile):
-        licenseData = open(licenseFile).read()
-        if licenseData == "y":
-            while True:
-                showInput()
-        else:
-
-            cprint("Sorry! You should accept the license agreement")
-            prntLicense()
-            cprint("Do you accept the license agreement of metasploit? [Y/N]")
-            inp = input(">>")
-            if inp.lower() == "y":
-                lic = open(licenseFile, "w").write("y")
-                licenseData = open(licenseFile).read()
-            elif inp.lower() == "n":
-                lic = open(licenseFile, "w").write("n")
-                licenseData = open(licenseFile).read()
-            else:
-                while inp.lower() != "y" and inp.lower() != "n":
-                    prntLicense()
-                    cprint("Do you accept the license agreement of metasploit? [Y/N]")
-                    inp = input(">>")
-                    if inp.lower() == "y":
-                        lic = open(licenseFile, "w").write("y")
-                        licenseData = open(licenseFile).read()
-                    elif inp.lower() == "n":
-                        lic = open(licenseFile, "w").write("n")
-                        licenseData = open(licenseFile).read()
-
-    else:
-        prntLicense()
-        cprint("Do you accept the license agreement of metasploit? [Y/N]")
-        inp = input(">>")
-        if inp.lower() == "y":
-            lic = open(licenseFile, "w").write("y")
-            licenseData = open(licenseFile).read()
-        elif inp.lower() == "n":
-            lic = open(licenseFile, "w").write("n")
-            licenseData = open(licenseFile).read()
-        else:
-            while inp.lower() != "y" and inp.lower() != "n":
-                prntLicense()
-                cprint("Do you accept the license agreement of metasploit? [Y/N]")
-                inp = input(">>")
-                if inp.lower() == "y":
-                    lic = open(licenseFile, "w").write("y")
-                    licenseData = open(licenseFile).read()
-                elif inp.lower() == "n":
-                    lic = open(licenseFile, "w").write("n")
-                    licenseData = open(licenseFile).read()
+    while True:
+        showInput()
 
 
-start()
